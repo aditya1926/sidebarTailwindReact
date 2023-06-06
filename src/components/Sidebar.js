@@ -18,10 +18,11 @@ const Menus = [
   { title: 'Dashboard', src: 'Chart_fill', icon: <MdOutlineDashboard /> },
   { title: 'Inbox', src: 'Chat', icon: <BsChatLeftText /> },
   { title: 'Accounts', src: 'User', gap: true, icon: <MdAccountCircle /> },
-  { title: 'Schedule ',
-   src: 'Calendar',
-   icon: <BsCalendarCheck /> 
-   ,subMenus: [
+  {
+    title: 'Schedule ',
+    src: 'Calendar',
+    icon: <BsCalendarCheck />
+    , subMenus: [
       {
         title: 'Service 1',
         src: '/services/services1',
@@ -39,7 +40,8 @@ const Menus = [
         src: '/services/services3',
       },
     ],
-      isOpen:false},
+    isOpen: false
+  },
   {
     title: 'Services',
     src: 'Services',
@@ -62,7 +64,7 @@ const Menus = [
         src: '/services/services3',
       },
     ],
-      isOpen:false
+    isOpen: false
   },
   { title: 'Analytics', src: 'Chart', icon: <MdAnalytics /> },
   { title: 'Files ', src: 'Folder', gap: true, icon: <BsFiles /> },
@@ -70,19 +72,19 @@ const Menus = [
   { title: 'Logout', src: 'Logout', icon: <MdLogout /> },
 ];
 
-const Sidebar = () => {
-  const [Menu ,SetMenu] = useState(Menus)
+const App = () => {
+  const [Menu, SetMenu] = useState(Menus)
   const [open, setOpen] = useState(true);
   const setSubMenuOpen = (index) => {
-  SetMenu((prevMenus) =>
-    prevMenus.map((menu, i) => {
-      if (i === index) {
-        return { ...menu, isOpen: !menu.isOpen };
-      }
-      return menu;
-    })
-  );
-};
+    SetMenu((prevMenus) =>
+      prevMenus.map((menu, i) => {
+        if (i === index) {
+          return { ...menu, isOpen: !menu.isOpen };
+        }
+        return menu;
+      })
+    );
+  };
   const toggleSidebar = () => {
     setOpen(!open);
   };
@@ -108,15 +110,13 @@ const Sidebar = () => {
       </button>
 
       <div
-        className={` ${
-          open ? 'w-48 px-2 ' : 'w-0 '
-        } lg:w-72 bg-teal-800 h-screen   relative duration-500`}
+        className={` ${open ? 'w-48 px-2 ' : 'w-0 '
+          } lg:w-72 bg-teal-800 h-screen   relative duration-500`}
       >
         <div className=" justify-center mt-3">
           <h1
-            className={`text-white  font-medium text-2xl text-center duration-200 ${
-              !open && 'invisible'
-            }`}
+            className={`text-white  font-medium text-2xl text-center duration-200 ${!open && 'invisible'
+              }`}
           >
             LOGO
           </h1>
@@ -131,7 +131,7 @@ const Sidebar = () => {
               >
                 {Menu.icon ? Menu.icon : <MdOutlineDashboard />}
                 <span className="flex-1">{Menu.title}</span>
-                {Menu.isOpen && (
+                {Menu.subMenus && (
                   <BsChevronDown
                     onClick={() => setSubMenuOpen(index)}
                     className={`${Menu.isOpen && 'rotate-180'}`}
@@ -158,4 +158,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default App;
