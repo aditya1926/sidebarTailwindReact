@@ -18,7 +18,28 @@ const Menus = [
   { title: 'Dashboard', src: 'Chart_fill', icon: <MdOutlineDashboard /> },
   { title: 'Inbox', src: 'Chat', icon: <BsChatLeftText /> },
   { title: 'Accounts', src: 'User', gap: true, icon: <MdAccountCircle /> },
-  { title: 'Schedule ', src: 'Calendar', icon: <BsCalendarCheck /> },
+  { title: 'Schedule ',
+   src: 'Calendar',
+   icon: <BsCalendarCheck /> 
+   ,subMenus: [
+      {
+        title: 'Service 1',
+        src: '/services/services1',
+
+        cName: 'sub-nav',
+      },
+      {
+        title: 'Service 2',
+        src: '/services/services2',
+
+        cName: 'sub-nav',
+      },
+      {
+        title: 'Service 3',
+        src: '/services/services3',
+      },
+    ],
+      isOpen:false},
   {
     title: 'Services',
     src: 'Services',
@@ -41,6 +62,7 @@ const Menus = [
         src: '/services/services3',
       },
     ],
+      isOpen:false
   },
   { title: 'Analytics', src: 'Chart', icon: <MdAnalytics /> },
   { title: 'Files ', src: 'Folder', gap: true, icon: <BsFiles /> },
@@ -49,8 +71,18 @@ const Menus = [
 ];
 
 const Sidebar = () => {
+  const [Menu ,SetMenu] = useState(Menus)
   const [open, setOpen] = useState(true);
-  const [subMenuOpen, setSubMenuOpen] = useState(false);
+  const setSubMenuOpen = (index) => {
+  setMenus((prevMenus) =>
+    prevMenus.map((menu, i) => {
+      if (i === index) {
+        return { ...menu, isOpen: !menu.isOpen };
+      }
+      return menu;
+    })
+  );
+};
   const toggleSidebar = () => {
     setOpen(!open);
   };
@@ -90,7 +122,7 @@ const Sidebar = () => {
           </h1>
         </div>
         <ul className="pt-6">
-          {Menus.map((Menu, index) => (
+          {Menu.map((Menu, index) => (
             <>
               <li
                 key={index}
@@ -101,7 +133,7 @@ const Sidebar = () => {
                 <span className="flex-1">{Menu.title}</span>
                 {Menu.subMenus && (
                   <BsChevronDown
-                    onClick={() => setSubMenuOpen(!subMenuOpen)}
+                    onClick={() => setSubMenuOpen(index)}
                     className={`${subMenuOpen && 'rotate-180'}`}
                   />
                 )}
