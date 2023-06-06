@@ -74,7 +74,7 @@ const Sidebar = () => {
   const [Menu ,SetMenu] = useState(Menus)
   const [open, setOpen] = useState(true);
   const setSubMenuOpen = (index) => {
-  setMenus((prevMenus) =>
+  SetMenu((prevMenus) =>
     prevMenus.map((menu, i) => {
       if (i === index) {
         return { ...menu, isOpen: !menu.isOpen };
@@ -131,14 +131,14 @@ const Sidebar = () => {
               >
                 {Menu.icon ? Menu.icon : <MdOutlineDashboard />}
                 <span className="flex-1">{Menu.title}</span>
-                {Menu.subMenus && (
+                {Menu.isOpen && (
                   <BsChevronDown
                     onClick={() => setSubMenuOpen(index)}
-                    className={`${subMenuOpen && 'rotate-180'}`}
+                    className={`${Menu.isOpen && 'rotate-180'}`}
                   />
                 )}
               </li>
-              {Menu.subMenus && subMenuOpen && open && (
+              {Menu.subMenus && Menu.isOpen && open && (
                 <ul>
                   {Menu.subMenus.map((subMenuItem, idx) => (
                     <li
